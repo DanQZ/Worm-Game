@@ -41,6 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: WormBody
+    uniqueID: 3898883447
+    locked: 0
   - name: Arrows
     uniqueID: 985231439
+    locked: 0
+  - name: UI
+    uniqueID: 2143658273
     locked: 0
