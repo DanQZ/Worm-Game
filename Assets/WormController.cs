@@ -9,7 +9,16 @@ public class WormController : MonoBehaviour
   [SerializeField] SpriteRenderer headSpriteRenderer;
   [SerializeField] SpriteRenderer tailSpriteRenderer;
   [SerializeField] GameObject bodyParentObject;
-  private List<HingeJoint2D> hingeJointList = new List<HingeJoint2D>();
+  private List<HingeJoint2D> hingeJoints1stHalf = new List<HingeJoint2D>();
+  private List<HingeJoint2D> hingeJoints2ndHalf = new List<HingeJoint2D>();
+  private List<HingeJoint2D> allHingeJoints = new List<HingeJoint2D>();
+
+  
+  [SerializeField] GameObject kUp;
+  [SerializeField] GameObject kDown;
+  [SerializeField] GameObject lUp;
+  [SerializeField] GameObject lDown;
+  
   void Start()
   {
     InitHinges();
@@ -17,10 +26,17 @@ public class WormController : MonoBehaviour
   }
 
   private void InitHinges(){
-    hingeJointList.Add(tailRB.GetComponent<HingeJoint2D>());
-    foreach (HingeJoint2D item in bodyParentObject.GetComponentsInChildren<HingeJoint2D>())
+    int index = 0;
+    foreach (HingeJoint2D hingeJoint in bodyParentObject.GetComponentsInChildren<HingeJoint2D>())
     {
-      hingeJointList.Add(item);
+      allHingeJoints.Add(hingeJoint);
+      if(index < 4){
+        hingeJoints1stHalf.Add(hingeJoint);
+      }
+      else{
+        hingeJoints2ndHalf.Add(hingeJoint);
+      }
+      index++;
     }
   }
   private List<LineRenderer> lineRendererList = new List<LineRenderer>();
@@ -33,7 +49,7 @@ public class WormController : MonoBehaviour
     headLineRenderer.endColor = Color.white;
   }
 
-  private float playerMotorSpeed = 25f;
+  private float playerMotorSpeed = 50f;
   [SerializeField] PhysicsMaterial2D wormMaterialFriction;
   [SerializeField] PhysicsMaterial2D defaultMaterial;
   void FixedUpdate()
@@ -69,33 +85,78 @@ public class WormController : MonoBehaviour
       tailRB.sharedMaterial = defaultMaterial;
       tailSpriteRenderer.color = Color.white;
     }
+
+    foreach (HingeJoint2D hingeJoint in allHingeJoints)
+    {
+      if(hingeJoint.useMotor){
+        hingeJoint.gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+      }
+      else{
+        hingeJoint.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+      }
+    }
   }
   
   private void WormTwisting(){
 
-    foreach (HingeJoint2D joint in hingeJointList)
+    kUp.SetActive(false);
+    kDown.SetActive(false);
+    lUp.SetActive(false);
+    lDown.SetActive(false);
+
+    foreach (HingeJoint2D joint in hingeJoints1stHalf)
+    {
+      joint.useMotor = false;
+    }
+
+    foreach (HingeJoint2D joint in hingeJoints2ndHalf)
     {
       joint.useMotor = false;
     }
 
     if(Input.GetKey("a"))
     {
-      foreach (HingeJoint2D joint in hingeJointList)
+      foreach (HingeJoint2D joint in hingeJoints1stHalf)
       {
         joint.useMotor = true;
         JointMotor2D motor = joint.motor;
         motor.motorSpeed = 0f + playerMotorSpeed;
         joint.motor = motor;
+        kDown.SetActive(true);
       }
     }
-    if( Input.GetKey("d"))
+    if( Input.GetKey("s"))
     {
-      foreach (HingeJoint2D joint in hingeJointList)
+      foreach (HingeJoint2D joint in hingeJoints1stHalf)
       {
         joint.useMotor = true;
         JointMotor2D motor = joint.motor;
         motor.motorSpeed = 0f - playerMotorSpeed;
         joint.motor = motor;
+        kUp.SetActive(true);
+      }
+    }
+
+    if( Input.GetKey("d"))
+    {
+      foreach (HingeJoint2D joint in hingeJoints2ndHalf)
+      {
+        joint.useMotor = true;
+        JointMotor2D motor = joint.motor;
+        motor.motorSpeed = 0f- playerMotorSpeed;
+        joint.motor = motor;
+        lDown.SetActive(true);
+      }
+    }
+    if( Input.GetKey("f"))
+    {
+      foreach (HingeJoint2D joint in hingeJoints2ndHalf)
+      {
+        joint.useMotor = true;
+        JointMotor2D motor = joint.motor;
+        motor.motorSpeed = playerMotorSpeed;
+        joint.motor = motor;
+        lUp.SetActive(true);
       }
     }
   }
