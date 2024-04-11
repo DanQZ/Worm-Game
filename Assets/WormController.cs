@@ -130,27 +130,49 @@ public class WormController : MonoBehaviour
     }
 
     // flex straight coloring
+    if(Input.GetKeyDown("f")){
+      lineFirstHalf.startColor = flexStraightColor;
+    }
+    if(Input.GetKeyUp("f") && !Input.GetKey(KeyCode.Space)){
+      lineFirstHalf.startColor = Color.black;
+    }
+    if(Input.GetKeyDown("h")){
+      lineSecondHalf.startColor = flexStraightColor;
+    }
+    if(Input.GetKeyUp("h") && !Input.GetKey(KeyCode.Space)){
+      lineSecondHalf.startColor = Color.black;
+    }
     if(Input.GetKeyDown(KeyCode.Space)){
       lineFirstHalf.startColor = flexStraightColor;
       lineSecondHalf.startColor = flexStraightColor;
     }
     if(Input.GetKeyUp(KeyCode.Space)){
-      lineFirstHalf.startColor = Color.black;
-      lineSecondHalf.startColor = Color.black;
+      if(!Input.GetKey("f")){
+        lineFirstHalf.startColor = Color.black;
+      }
+      if(!Input.GetKey("h")){
+        lineSecondHalf.startColor = Color.black;
+      }
     }
   }
   private void WormTwisting(){
+    CurlControls();
+    FlexStraightControls();
+  }
 
+  private void CurlControls(){
+    
+    // hide arrows
     kUp.SetActive(false);
     kDown.SetActive(false);
     lUp.SetActive(false);
     lDown.SetActive(false);
 
+    // reset motors
     foreach (HingeJoint2D joint in hingeJoints1stHalf)
     {
       joint.useMotor = false;
     }
-
     foreach (HingeJoint2D joint in hingeJoints2ndHalf)
     {
       joint.useMotor = false;
@@ -204,27 +226,46 @@ public class WormController : MonoBehaviour
         lUp.SetActive(true);
       }
     }
+  }
 
+  private void FlexStraightControls(){
+    
     if(Input.GetKey(KeyCode.Space)){
-      FlexStraight();
+      FlexStraight(true);
+      FlexStraight(false);
+    }
+    else{
+      if(Input.GetKey("f")){
+        FlexStraight(false);
+      }
+      if(Input.GetKey("h")){
+        FlexStraight(true);
+      }
     }
   }
 
   float flexStraightStrengthMult = 1f;
   Color flexStraightColor = Color.red;
-  private void FlexStraight(){
-    foreach (HingeJoint2D joint in allHingeJoints)
+  private void FlexStraight(bool rightSide){
+
+    List<HingeJoint2D> hingeJointsList = rightSide ? hingeJoints2ndHalf : hingeJoints1stHalf;
+
+    foreach (HingeJoint2D joint in hingeJointsList)
     {
-      joint.useMotor = true;
-      JointMotor2D motor = joint.motor;
-      if(joint.jointAngle > 0f){
+      if(joint.jointAngle > 0){
+        joint.useMotor = true;
+        JointMotor2D motor = joint.motor;
         motor.motorSpeed = 0f- playerMotorSpeed * flexStraightStrengthMult;
+        motor.maxMotorTorque = maxTorque * flexStraightStrengthMult;
+        joint.motor = motor;
       }
-      else{
-        motor.motorSpeed = playerMotorSpeed* flexStraightStrengthMult;
+      else if(joint.jointAngle < 0){
+        joint.useMotor = true;
+        JointMotor2D motor = joint.motor;
+        motor.motorSpeed = playerMotorSpeed * flexStraightStrengthMult;
+        motor.maxMotorTorque = maxTorque * flexStraightStrengthMult;
+        joint.motor = motor;
       }
-      motor.maxMotorTorque = maxTorque * flexStraightStrengthMult;
-      joint.motor = motor;
     }
   }
 

@@ -76,7 +76,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 10.71, y: -0.85}
+  m_AnchoredPosition: {x: 10.71, y: -0.81}
   m_SizeDelta: {x: 1149, y: 596}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7010998956836289423
@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 6309600450414794465}
   - component: {fileID: 7554589161240259984}
   - component: {fileID: 2727640465650279817}
+  - component: {fileID: 545078879245249752}
   m_Layer: 0
   m_Name: Body3
   m_TagString: Player
@@ -316,6 +317,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!232 &545078879245249752
+DistanceJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899590437143345628}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 4073864060620440465}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 1.0549998
+  m_MaxDistanceOnly: 0
 --- !u!1 &1052675506781039151
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,6 +350,7 @@ GameObject:
   - component: {fileID: 3570425628152978053}
   - component: {fileID: 1246968270008286062}
   - component: {fileID: 7826362775034624542}
+  - component: {fileID: 542022540467034729}
   m_Layer: 0
   m_Name: Body2 (2)
   m_TagString: Player
@@ -490,6 +512,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!232 &542022540467034729
+DistanceJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052675506781039151}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 4898618713625241588}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 1.0640011
+  m_MaxDistanceOnly: 0
 --- !u!1 &1460193573311744036
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,6 +545,7 @@ GameObject:
   - component: {fileID: 4073864060620440465}
   - component: {fileID: 8356778118223642321}
   - component: {fileID: 5886169546541039147}
+  - component: {fileID: 4380991022087621856}
   m_Layer: 0
   m_Name: Body (1)
   m_TagString: Player
@@ -664,6 +707,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!232 &4380991022087621856
+DistanceJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460193573311744036}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 244872801286859365}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 1.06
+  m_MaxDistanceOnly: 0
 --- !u!1 &1517755811087655089
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +740,7 @@ GameObject:
   - component: {fileID: 3657974538758051713}
   - component: {fileID: 3559337944781487833}
   - component: {fileID: 381618405968292892}
+  - component: {fileID: 1904360418150382979}
   m_Layer: 0
   m_Name: Body2
   m_TagString: Player
@@ -838,6 +902,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!232 &1904360418150382979
+DistanceJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517755811087655089}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 6309600450414794465}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 1.0640001
+  m_MaxDistanceOnly: 0
 --- !u!1 &1570656810798277877
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,6 +935,7 @@ GameObject:
   - component: {fileID: 4122300669392384626}
   - component: {fileID: 546750406200895982}
   - component: {fileID: 7860466998699720100}
+  - component: {fileID: 4676922332755560360}
   m_Layer: 0
   m_Name: Body (2)
   m_TagString: Player
@@ -1012,6 +1097,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!232 &4676922332755560360
+DistanceJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570656810798277877}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 3570425628152978053}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 1.0559998
+  m_MaxDistanceOnly: 0
 --- !u!1 &1721699640159149096
 GameObject:
   m_ObjectHideFlags: 0
@@ -1025,6 +1130,7 @@ GameObject:
   - component: {fileID: 1630540039664902534}
   - component: {fileID: 317959037275329557}
   - component: {fileID: 7791979267836669090}
+  - component: {fileID: 50820108502433212}
   m_Layer: 0
   m_Name: Body2 (1)
   m_TagString: Player
@@ -1186,6 +1292,26 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: -45
     m_UpperAngle: 45
+--- !u!232 &50820108502433212
+DistanceJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721699640159149096}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 6286859892876586034}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 1.0640001
+  m_MaxDistanceOnly: 0
 --- !u!1 &1841758202442530516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1973,6 +2099,7 @@ GameObject:
   - component: {fileID: 244872801286859365}
   - component: {fileID: 2228994251027341747}
   - component: {fileID: 8249617625475781945}
+  - component: {fileID: 1634908085967472277}
   m_Layer: 0
   m_Name: BodyCenter
   m_TagString: Player
@@ -2159,6 +2286,26 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: -22
     m_UpperAngle: 22
+--- !u!232 &1634908085967472277
+DistanceJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4789100451338250218}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 1630540039664902534}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 1.0810003
+  m_MaxDistanceOnly: 0
 --- !u!1 &5421804250703018591
 GameObject:
   m_ObjectHideFlags: 0
@@ -2172,6 +2319,7 @@ GameObject:
   - component: {fileID: 6286859892876586034}
   - component: {fileID: 5562191559302595949}
   - component: {fileID: 5491394011996947146}
+  - component: {fileID: 5577975753155507301}
   m_Layer: 0
   m_Name: Body3 (1)
   m_TagString: Player
@@ -2333,6 +2481,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!232 &5577975753155507301
+DistanceJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5421804250703018591}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 4122300669392384626}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 1.0710001
+  m_MaxDistanceOnly: 0
 --- !u!1 &5752140121610653375
 GameObject:
   m_ObjectHideFlags: 0
@@ -2730,6 +2898,7 @@ GameObject:
   - component: {fileID: 341740511974104502}
   - component: {fileID: 7246694660847897171}
   - component: {fileID: 5412211770177831702}
+  - component: {fileID: 6332731466546968862}
   m_Layer: 0
   m_Name: Head
   m_TagString: Player
@@ -2869,6 +3038,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!232 &6332731466546968862
+DistanceJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8311674481020179196}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 4954677790642547023}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 1.064
+  m_MaxDistanceOnly: 0
 --- !u!1 &8947623859053507829
 GameObject:
   m_ObjectHideFlags: 0
@@ -2882,6 +3071,7 @@ GameObject:
   - component: {fileID: 4954677790642547023}
   - component: {fileID: 5801462956116460545}
   - component: {fileID: 7247273367201103670}
+  - component: {fileID: 4335400646643040761}
   m_Layer: 0
   m_Name: Body
   m_TagString: Player
@@ -3043,6 +3233,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!232 &4335400646643040761
+DistanceJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8947623859053507829}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 3657974538758051713}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 1.0559999
+  m_MaxDistanceOnly: 0
 --- !u!1 &8994166606668662703
 GameObject:
   m_ObjectHideFlags: 0
