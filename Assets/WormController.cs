@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//In Honour of John Choi
 public class WormController : MonoBehaviour
 {
   [SerializeField] Rigidbody2D headRB;
@@ -29,6 +29,7 @@ public class WormController : MonoBehaviour
     InitLineRenderers();
   }
 
+
   private void InitHinges(){
     int index = 0;
     foreach (HingeJoint2D hingeJoint in bodyParentObject.GetComponentsInChildren<HingeJoint2D>())
@@ -47,8 +48,8 @@ public class WormController : MonoBehaviour
   [SerializeField] LineRenderer lineFirstHalf;
   [SerializeField] LineRenderer lineSecondHalf;
   private void InitLineRenderers(){
-    float startThickness = 0.75f;
-    float endThickness = 0.6f;
+    float startThickness = 0.9f;
+    float endThickness = 0.7f;
     int cornerVertices = 3;
     int capVertices = 7;
 
@@ -59,28 +60,7 @@ public class WormController : MonoBehaviour
     lineFirstHalf.endColor = Color.black;
     lineFirstHalf.numCornerVertices	= cornerVertices;
     lineFirstHalf.numCapVertices = capVertices;
-    /*
-    float totalThicknessDiff = startThickness - endThickness;
-    float thicknessToEnd = totalThicknessDiff / 5;
-    int index = 0;
-    float thicknessPercent = 1f;
-    foreach (HingeJoint2D item in hingeJoints1stHalf)
-    {
-      thicknessPercent = 1f - thicknessToEnd * index;
-      index++;
-      item.gameObject.GetComponent<CircleCollider2D>().radius = startThickness * thicknessPercent;
-    }
-    headRB.gameObject.GetComponent<CircleCollider2D>().radius = endThickness;
 
-    index = 0;
-    foreach (HingeJoint2D item in hingeJoints2ndHalf)
-    {
-      thicknessPercent = 1f - thicknessToEnd * index;
-      index++;
-      item.gameObject.GetComponent<CircleCollider2D>().radius = startThickness * thicknessPercent;
-    }
-    tailRB.gameObject.GetComponent<CircleCollider2D>().radius = endThickness;
-    */
     lineSecondHalf.positionCount = 6;
     lineSecondHalf.startWidth = startThickness;
     lineSecondHalf.endWidth = endThickness;
@@ -102,36 +82,40 @@ public class WormController : MonoBehaviour
     UpdateLineRenderer();
   }
 
+  string headFriction = "l";
+  string headUp = "k";
+  string headDown = "j";
+
+  string tailFriction = "a";
+  string tailUp = "s";
+  string tailDown = "d";
+
   private void UpdateWormProperties(){
 
-    if(Input.GetKeyDown("k"))
+    if(Input.GetKeyDown(tailFriction))
     {
       headRB.sharedMaterial = wormMaterialFriction;
       headSpriteRenderer.color = Color.red;
-      lineFirstHalf.startColor = Color.black;
       lineFirstHalf.endColor = Color.yellow;
     }
-    if(Input.GetKeyDown("l"))
+    if(Input.GetKeyDown(headFriction))
     {
       tailRB.sharedMaterial = wormMaterialFriction;
       tailSpriteRenderer.color = Color.red;
-      lineSecondHalf.startColor = Color.black;
       lineSecondHalf.endColor = Color.yellow;
     }
     
-    if(Input.GetKeyUp("k"))
+    if(Input.GetKeyUp(tailFriction))
     {
       headRB.sharedMaterial = defaultMaterial;
       headSpriteRenderer.color = Color.black;
-      lineFirstHalf.startColor = Color.black;
       lineFirstHalf.endColor = Color.black;
     
     }
-    if(Input.GetKeyUp("l"))
+    if(Input.GetKeyUp(headFriction))
     {
       tailRB.sharedMaterial = defaultMaterial;
       tailSpriteRenderer.color = Color.black;
-      lineSecondHalf.startColor = Color.black;
       lineSecondHalf.endColor = Color.black;
     }
 
@@ -143,6 +127,16 @@ public class WormController : MonoBehaviour
       else{
         hingeJoint.gameObject.GetComponent<SpriteRenderer>().color = Color.black;
       }
+    }
+
+    // flex straight coloring
+    if(Input.GetKeyDown(KeyCode.Space)){
+      lineFirstHalf.startColor = flexStraightColor;
+      lineSecondHalf.startColor = flexStraightColor;
+    }
+    if(Input.GetKeyUp(KeyCode.Space)){
+      lineFirstHalf.startColor = Color.black;
+      lineSecondHalf.startColor = Color.black;
     }
   }
   private void WormTwisting(){
@@ -161,7 +155,7 @@ public class WormController : MonoBehaviour
     {
       joint.useMotor = false;
     }
-    if(Input.GetKey("a"))
+    if(Input.GetKey(tailUp))
     {
       foreach (HingeJoint2D joint in hingeJoints1stHalf)
       {
@@ -173,7 +167,7 @@ public class WormController : MonoBehaviour
         kDown.SetActive(true);
       }
     }
-    else if(Input.GetKey("s"))
+    else if(Input.GetKey(tailDown))
     {
       foreach (HingeJoint2D joint in hingeJoints1stHalf)
       {
@@ -186,7 +180,7 @@ public class WormController : MonoBehaviour
       }
     }
 
-    if(Input.GetKey("d"))
+    if(Input.GetKey(headUp))
     {
       foreach (HingeJoint2D joint in hingeJoints2ndHalf)
       {
@@ -198,7 +192,7 @@ public class WormController : MonoBehaviour
         lDown.SetActive(true);
       }
     }
-    else if(Input.GetKey("f"))
+    else if(Input.GetKey(headDown))
     {
       foreach (HingeJoint2D joint in hingeJoints2ndHalf)
       {
@@ -215,56 +209,27 @@ public class WormController : MonoBehaviour
       FlexStraight();
     }
   }
-  float flexStraightMult = 1f;
 
+  float flexStraightStrengthMult = 1f;
+  Color flexStraightColor = Color.red;
   private void FlexStraight(){
     foreach (HingeJoint2D joint in allHingeJoints)
     {
       joint.useMotor = true;
       JointMotor2D motor = joint.motor;
       if(joint.jointAngle > 0f){
-        motor.motorSpeed = 0f- playerMotorSpeed * flexStraightMult;
+        motor.motorSpeed = 0f- playerMotorSpeed * flexStraightStrengthMult;
       }
       else{
-        motor.motorSpeed = playerMotorSpeed* flexStraightMult;
+        motor.motorSpeed = playerMotorSpeed* flexStraightStrengthMult;
       }
-      motor.maxMotorTorque = maxTorque * flexStraightMult;
+      motor.maxMotorTorque = maxTorque * flexStraightStrengthMult;
       joint.motor = motor;
     }
   }
 
-  private void TwistCenter(){
-    foreach (HingeJoint2D joint in centerRB.gameObject.GetComponents<HingeJoint2D>())
-    {
-      joint.useMotor = false;
-    }
-    if(Input.GetKey("h"))
-    {
-      foreach (HingeJoint2D joint in centerRB.gameObject.GetComponents<HingeJoint2D>())
-      {
-        joint.useMotor = true;
-        JointMotor2D motor = joint.motor;
-        motor.motorSpeed = 0f - playerMotorSpeed;
-        motor.maxMotorTorque = maxTorque;
-        joint.motor = motor;
-        lDown.SetActive(true);
-      }
-    }
-    else if(Input.GetKey("j"))
-    {
-      foreach (HingeJoint2D joint in centerRB.gameObject.GetComponents<HingeJoint2D>())
-      {
-        joint.useMotor = true;
-        JointMotor2D motor = joint.motor;
-        motor.motorSpeed = playerMotorSpeed;
-        motor.maxMotorTorque = maxTorque;
-        joint.motor = motor;
-        lUp.SetActive(true);
-      }
-    }
-  }
-
   private void UpdateLineRenderer(){
+
     lineFirstHalf.SetPosition(5, headRB.transform.position);
     lineFirstHalf.SetPosition(4, hingeJoints1stHalf[0].transform.position);
     lineFirstHalf.SetPosition(3, hingeJoints1stHalf[1].transform.position);
