@@ -20,7 +20,7 @@ public class WormController : MonoBehaviour
   [SerializeField] GameObject lUp;
   [SerializeField] GameObject lDown;
   
-  private float playerMotorSpeed = 150f;
+  private float playerMotorSpeed = 100f;
   private float maxTorque = 1000f;
   
   void Start()
@@ -82,37 +82,40 @@ public class WormController : MonoBehaviour
     UpdateLineRenderer();
   }
 
-  string headFriction = "l";
-  string headUp = "k";
-  string headDown = "j";
+  private string keyHeadFriction = "l";
+  private string keyHeadUp = "k";
+  private string keyHeadDown = "j";
+  private string keyFlexHead = "h";
 
-  string tailFriction = "a";
-  string tailUp = "s";
-  string tailDown = "d";
+  private string keyTailFriction = "a";
+  private string keyTailUp = "s";
+  private string keyTailDown = "d";
+  private string keyFlexTail = "f";
+  private KeyCode keyFlexStraight = KeyCode.Space; 
 
   private void UpdateWormProperties(){
 
-    if(Input.GetKeyDown(tailFriction))
+    if(Input.GetKeyDown(keyTailFriction))
     {
       headRB.sharedMaterial = wormMaterialFriction;
       headSpriteRenderer.color = Color.red;
       lineFirstHalf.endColor = Color.yellow;
     }
-    if(Input.GetKeyDown(headFriction))
+    if(Input.GetKeyDown(keyHeadFriction))
     {
       tailRB.sharedMaterial = wormMaterialFriction;
       tailSpriteRenderer.color = Color.red;
       lineSecondHalf.endColor = Color.yellow;
     }
     
-    if(Input.GetKeyUp(tailFriction))
+    if(Input.GetKeyUp(keyTailFriction))
     {
       headRB.sharedMaterial = defaultMaterial;
       headSpriteRenderer.color = Color.black;
       lineFirstHalf.endColor = Color.black;
     
     }
-    if(Input.GetKeyUp(headFriction))
+    if(Input.GetKeyUp(keyHeadFriction))
     {
       tailRB.sharedMaterial = defaultMaterial;
       tailSpriteRenderer.color = Color.black;
@@ -130,27 +133,27 @@ public class WormController : MonoBehaviour
     }
 
     // flex straight coloring
-    if(Input.GetKeyDown("f")){
+    if(Input.GetKeyDown(keyFlexTail)){
       lineFirstHalf.startColor = flexStraightColor;
     }
-    if(Input.GetKeyUp("f") && !Input.GetKey(KeyCode.Space)){
+    if(Input.GetKeyUp(keyFlexTail) && !Input.GetKey(keyFlexStraight)){
       lineFirstHalf.startColor = Color.black;
     }
-    if(Input.GetKeyDown("h")){
+    if(Input.GetKeyDown(keyFlexHead)){
       lineSecondHalf.startColor = flexStraightColor;
     }
-    if(Input.GetKeyUp("h") && !Input.GetKey(KeyCode.Space)){
+    if(Input.GetKeyUp(keyFlexHead) && !Input.GetKey(keyFlexStraight)){
       lineSecondHalf.startColor = Color.black;
     }
-    if(Input.GetKeyDown(KeyCode.Space)){
+    if(Input.GetKeyDown(keyFlexStraight)){
       lineFirstHalf.startColor = flexStraightColor;
       lineSecondHalf.startColor = flexStraightColor;
     }
-    if(Input.GetKeyUp(KeyCode.Space)){
-      if(!Input.GetKey("f")){
+    if(Input.GetKeyUp(keyFlexStraight)){
+      if(!Input.GetKey(keyFlexTail)){
         lineFirstHalf.startColor = Color.black;
       }
-      if(!Input.GetKey("h")){
+      if(!Input.GetKey(keyFlexHead)){
         lineSecondHalf.startColor = Color.black;
       }
     }
@@ -177,7 +180,7 @@ public class WormController : MonoBehaviour
     {
       joint.useMotor = false;
     }
-    if(Input.GetKey(tailUp))
+    if(Input.GetKey(keyTailUp))
     {
       foreach (HingeJoint2D joint in hingeJoints1stHalf)
       {
@@ -189,7 +192,7 @@ public class WormController : MonoBehaviour
         kDown.SetActive(true);
       }
     }
-    else if(Input.GetKey(tailDown))
+    else if(Input.GetKey(keyTailDown))
     {
       foreach (HingeJoint2D joint in hingeJoints1stHalf)
       {
@@ -202,7 +205,7 @@ public class WormController : MonoBehaviour
       }
     }
 
-    if(Input.GetKey(headUp))
+    if(Input.GetKey(keyHeadUp))
     {
       foreach (HingeJoint2D joint in hingeJoints2ndHalf)
       {
@@ -214,7 +217,7 @@ public class WormController : MonoBehaviour
         lDown.SetActive(true);
       }
     }
-    else if(Input.GetKey(headDown))
+    else if(Input.GetKey(keyHeadDown))
     {
       foreach (HingeJoint2D joint in hingeJoints2ndHalf)
       {
@@ -230,15 +233,15 @@ public class WormController : MonoBehaviour
 
   private void FlexStraightControls(){
     
-    if(Input.GetKey(KeyCode.Space)){
+    if(Input.GetKey(keyFlexStraight)){
       FlexStraight(true);
       FlexStraight(false);
     }
     else{
-      if(Input.GetKey("f")){
+      if(Input.GetKey(keyFlexTail)){
         FlexStraight(false);
       }
-      if(Input.GetKey("h")){
+      if(Input.GetKey(keyFlexHead)){
         FlexStraight(true);
       }
     }
@@ -246,20 +249,21 @@ public class WormController : MonoBehaviour
 
   float flexStraightStrengthMult = 1f;
   Color flexStraightColor = Color.red;
+  float flexStraightMaxAngle = 2f;
   private void FlexStraight(bool rightSide){
 
     List<HingeJoint2D> hingeJointsList = rightSide ? hingeJoints2ndHalf : hingeJoints1stHalf;
 
     foreach (HingeJoint2D joint in hingeJointsList)
     {
-      if(joint.jointAngle > 0){
+      if(joint.jointAngle > flexStraightMaxAngle){
         joint.useMotor = true;
         JointMotor2D motor = joint.motor;
         motor.motorSpeed = 0f- playerMotorSpeed * flexStraightStrengthMult;
         motor.maxMotorTorque = maxTorque * flexStraightStrengthMult;
         joint.motor = motor;
       }
-      else if(joint.jointAngle < 0){
+      else if(joint.jointAngle < (0f - flexStraightMaxAngle)){
         joint.useMotor = true;
         JointMotor2D motor = joint.motor;
         motor.motorSpeed = playerMotorSpeed * flexStraightStrengthMult;

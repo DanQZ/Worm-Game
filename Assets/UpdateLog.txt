@@ -1,0 +1,21 @@
+Alpha 1.1
+  -Incrased height of second obstacle to make it so that you can't just accidentally throw yourself over it 
+
+Alpha 1.0.2
+  -Fixed flexing one side coloring both sides red
+  -Experimental physics fix by enabling "max distance only" on the distance joints  
+
+Alpha 1.0.1 - UI fix 
+  -UI now scales properly with resolution
+
+Alpha 1.0 - Initial release
+  -Worm updates 
+    -Can now curl both ends individually, from the middle 
+    -Can now flex entire body straight, or flex just one end straight
+    -Much faster turn speed, reduced max torque (fixes buggy physics issues)
+  -Made initial map, with 3 different areas 
+  -Added basic UI (timer and a close game button)
+
+Prototype
+  -Worm with ability to curl up in 2 directions and add friction to either end
+  -map in progress, 3 obstacles (single square, ramp, 3 square staircase)

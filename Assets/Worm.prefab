@@ -336,7 +336,7 @@ DistanceJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.0549998
-  m_MaxDistanceOnly: 0
+  m_MaxDistanceOnly: 1
 --- !u!1 &1052675506781039151
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +531,7 @@ DistanceJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.0640011
-  m_MaxDistanceOnly: 0
+  m_MaxDistanceOnly: 1
 --- !u!1 &1460193573311744036
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,7 +726,7 @@ DistanceJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.06
-  m_MaxDistanceOnly: 0
+  m_MaxDistanceOnly: 1
 --- !u!1 &1517755811087655089
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,7 +921,7 @@ DistanceJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.0640001
-  m_MaxDistanceOnly: 0
+  m_MaxDistanceOnly: 1
 --- !u!1 &1570656810798277877
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,7 +1116,7 @@ DistanceJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.0559998
-  m_MaxDistanceOnly: 0
+  m_MaxDistanceOnly: 1
 --- !u!1 &1721699640159149096
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,7 +1311,7 @@ DistanceJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.0640001
-  m_MaxDistanceOnly: 0
+  m_MaxDistanceOnly: 1
 --- !u!1 &1841758202442530516
 GameObject:
   m_ObjectHideFlags: 0
@@ -2305,7 +2305,7 @@ DistanceJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.0810003
-  m_MaxDistanceOnly: 0
+  m_MaxDistanceOnly: 1
 --- !u!1 &5421804250703018591
 GameObject:
   m_ObjectHideFlags: 0
@@ -2500,7 +2500,7 @@ DistanceJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.0710001
-  m_MaxDistanceOnly: 0
+  m_MaxDistanceOnly: 1
 --- !u!1 &5752140121610653375
 GameObject:
   m_ObjectHideFlags: 0
@@ -3252,7 +3252,7 @@ DistanceJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 1.0559999
-  m_MaxDistanceOnly: 0
+  m_MaxDistanceOnly: 1
 --- !u!1 &8994166606668662703
 GameObject:
   m_ObjectHideFlags: 0
