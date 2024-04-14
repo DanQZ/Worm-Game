@@ -56,16 +56,16 @@ public class WormController : MonoBehaviour
     lineFirstHalf.positionCount = 6;
     lineFirstHalf.startWidth = startThickness;
     lineFirstHalf.endWidth = endThickness;
-    lineFirstHalf.startColor = Color.black;
-    lineFirstHalf.endColor = Color.black;
+    lineFirstHalf.startColor = normalColor;
+    lineFirstHalf.endColor = normalColor;
     lineFirstHalf.numCornerVertices	= cornerVertices;
     lineFirstHalf.numCapVertices = capVertices;
 
     lineSecondHalf.positionCount = 6;
     lineSecondHalf.startWidth = startThickness;
     lineSecondHalf.endWidth = endThickness;
-    lineSecondHalf.startColor = Color.black;
-    lineSecondHalf.endColor = Color.black;
+    lineSecondHalf.startColor = normalColor;
+    lineSecondHalf.endColor = normalColor;
     lineSecondHalf.numCornerVertices	= cornerVertices;
     lineSecondHalf.numCapVertices = capVertices;
   }
@@ -82,79 +82,84 @@ public class WormController : MonoBehaviour
     UpdateLineRenderer();
   }
 
-  private string keyHeadFriction = "l";
-  private string keyHeadUp = "k";
-  private string keyHeadDown = "j";
-  private string keyFlexHead = "h";
+  private string keyAFriction = "a";
+  public bool frictionAOn = false;
+  private string keyAUp = "s";
+  private string keyADown = "w";
+  private string keyAFlex = "d";
 
-  private string keyTailFriction = "a";
-  private string keyTailUp = "s";
-  private string keyTailDown = "d";
-  private string keyFlexTail = "f";
+  private string keyLFriction = "l";
+  public bool frictionLOn = false;
+  private string keyLUp = "k";
+  private string keyLDown = "i";
+  private string keyLFlex = "j";
+
   private KeyCode keyFlexStraight = KeyCode.Space; 
+
+  private Color normalColor = Color.black;
+  private Color frictionColor = Color.yellow;
+
+  [SerializeField] WormEnd wormEndA;
+  [SerializeField] WormEnd wormEndL;
 
   private void UpdateWormProperties(){
 
-    if(Input.GetKeyDown(keyTailFriction))
+    if(Input.GetKeyDown(keyAFriction))
     {
+      wormEndA.TryToStick();
+      frictionLOn = true;
       headRB.sharedMaterial = wormMaterialFriction;
-      headSpriteRenderer.color = Color.red;
-      lineFirstHalf.endColor = Color.yellow;
+      lineFirstHalf.endColor = frictionColor;
     }
-    if(Input.GetKeyDown(keyHeadFriction))
+    if(Input.GetKeyDown(keyLFriction))
     {
+      wormEndL.TryToStick();
+      frictionAOn = true;
       tailRB.sharedMaterial = wormMaterialFriction;
-      tailSpriteRenderer.color = Color.red;
-      lineSecondHalf.endColor = Color.yellow;
+      lineSecondHalf.endColor = frictionColor;
     }
     
-    if(Input.GetKeyUp(keyTailFriction))
+    if(Input.GetKeyUp(keyAFriction))
     {
+      wormEndA.Unstick();
+      frictionLOn = false;
       headRB.sharedMaterial = defaultMaterial;
-      headSpriteRenderer.color = Color.black;
-      lineFirstHalf.endColor = Color.black;
+      headSpriteRenderer.color = normalColor;
+      lineFirstHalf.endColor = normalColor;
     
     }
-    if(Input.GetKeyUp(keyHeadFriction))
+    if(Input.GetKeyUp(keyLFriction))
     {
+      wormEndL.Unstick();
+      frictionAOn = false;
       tailRB.sharedMaterial = defaultMaterial;
-      tailSpriteRenderer.color = Color.black;
-      lineSecondHalf.endColor = Color.black;
-    }
-
-    foreach (HingeJoint2D hingeJoint in allHingeJoints)
-    {
-      if(hingeJoint.useMotor){
-        hingeJoint.gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
-      }
-      else{
-        hingeJoint.gameObject.GetComponent<SpriteRenderer>().color = Color.black;
-      }
+      tailSpriteRenderer.color = normalColor;
+      lineSecondHalf.endColor = normalColor;
     }
 
     // flex straight coloring
-    if(Input.GetKeyDown(keyFlexTail)){
+    if(Input.GetKeyDown(keyAFlex)){
       lineFirstHalf.startColor = flexStraightColor;
     }
-    if(Input.GetKeyUp(keyFlexTail) && !Input.GetKey(keyFlexStraight)){
-      lineFirstHalf.startColor = Color.black;
+    if(Input.GetKeyUp(keyAFlex) && !Input.GetKey(keyFlexStraight)){
+      lineFirstHalf.startColor = normalColor;
     }
-    if(Input.GetKeyDown(keyFlexHead)){
+    if(Input.GetKeyDown(keyLFlex)){
       lineSecondHalf.startColor = flexStraightColor;
     }
-    if(Input.GetKeyUp(keyFlexHead) && !Input.GetKey(keyFlexStraight)){
-      lineSecondHalf.startColor = Color.black;
+    if(Input.GetKeyUp(keyLFlex) && !Input.GetKey(keyFlexStraight)){
+      lineSecondHalf.startColor = normalColor;
     }
     if(Input.GetKeyDown(keyFlexStraight)){
       lineFirstHalf.startColor = flexStraightColor;
       lineSecondHalf.startColor = flexStraightColor;
     }
     if(Input.GetKeyUp(keyFlexStraight)){
-      if(!Input.GetKey(keyFlexTail)){
-        lineFirstHalf.startColor = Color.black;
+      if(!Input.GetKey(keyAFlex)){
+        lineFirstHalf.startColor = normalColor;
       }
-      if(!Input.GetKey(keyFlexHead)){
-        lineSecondHalf.startColor = Color.black;
+      if(!Input.GetKey(keyLFlex)){
+        lineSecondHalf.startColor = normalColor;
       }
     }
   }
@@ -180,7 +185,7 @@ public class WormController : MonoBehaviour
     {
       joint.useMotor = false;
     }
-    if(Input.GetKey(keyTailUp))
+    if(Input.GetKey(keyAUp))
     {
       foreach (HingeJoint2D joint in hingeJoints1stHalf)
       {
@@ -192,7 +197,7 @@ public class WormController : MonoBehaviour
         kDown.SetActive(true);
       }
     }
-    else if(Input.GetKey(keyTailDown))
+    else if(Input.GetKey(keyADown))
     {
       foreach (HingeJoint2D joint in hingeJoints1stHalf)
       {
@@ -205,7 +210,7 @@ public class WormController : MonoBehaviour
       }
     }
 
-    if(Input.GetKey(keyHeadUp))
+    if(Input.GetKey(keyLUp))
     {
       foreach (HingeJoint2D joint in hingeJoints2ndHalf)
       {
@@ -217,7 +222,7 @@ public class WormController : MonoBehaviour
         lDown.SetActive(true);
       }
     }
-    else if(Input.GetKey(keyHeadDown))
+    else if(Input.GetKey(keyLDown))
     {
       foreach (HingeJoint2D joint in hingeJoints2ndHalf)
       {
@@ -238,10 +243,10 @@ public class WormController : MonoBehaviour
       FlexStraight(false);
     }
     else{
-      if(Input.GetKey(keyFlexTail)){
+      if(Input.GetKey(keyAFlex)){
         FlexStraight(false);
       }
-      if(Input.GetKey(keyFlexHead)){
+      if(Input.GetKey(keyLFlex)){
         FlexStraight(true);
       }
     }

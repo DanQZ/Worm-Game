@@ -1427,6 +1427,7 @@ GameObject:
   - component: {fileID: 2401798510657458740}
   - component: {fileID: 4898618713625241588}
   - component: {fileID: 5382794874956550350}
+  - component: {fileID: 279316397760607310}
   m_Layer: 0
   m_Name: Tail
   m_TagString: Player
@@ -1566,6 +1567,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &279316397760607310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3802405791581696442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13141cd4db59e334498b2040ecf40c5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myWormController: {fileID: 2448096017320339232}
+  myRB: {fileID: 4898618713625241588}
 --- !u!1 &3926651550517950564
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,8 +1731,8 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -396083849
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -2020,8 +2035,8 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -396083849
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -2833,7 +2848,7 @@ GameObject:
   - component: {fileID: 3221745450794727962}
   - component: {fileID: 2448096017320339232}
   m_Layer: 0
-  m_Name: Worm
+  m_Name: Worm (fixed)
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2886,6 +2901,10 @@ MonoBehaviour:
   lineSecondHalf: {fileID: 7342489081765603581}
   wormMaterialFriction: {fileID: 6200000, guid: 88db6d8504e30e249a5eae9164618b2a, type: 2}
   defaultMaterial: {fileID: 6200000, guid: c85b213c34c497e4583dd4c0519a9526, type: 2}
+  frictionAOn: 0
+  frictionLOn: 0
+  wormEndA: {fileID: 6039999695890703438}
+  wormEndL: {fileID: 279316397760607310}
 --- !u!1 &8311674481020179196
 GameObject:
   m_ObjectHideFlags: 0
@@ -2899,6 +2918,7 @@ GameObject:
   - component: {fileID: 7246694660847897171}
   - component: {fileID: 5412211770177831702}
   - component: {fileID: 6332731466546968862}
+  - component: {fileID: 6039999695890703438}
   m_Layer: 0
   m_Name: Head
   m_TagString: Player
@@ -3058,6 +3078,20 @@ DistanceJoint2D:
   m_AutoConfigureDistance: 1
   m_Distance: 1.064
   m_MaxDistanceOnly: 0
+--- !u!114 &6039999695890703438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8311674481020179196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13141cd4db59e334498b2040ecf40c5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myWormController: {fileID: 2448096017320339232}
+  myRB: {fileID: 7246694660847897171}
 --- !u!1 &8947623859053507829
 GameObject:
   m_ObjectHideFlags: 0
