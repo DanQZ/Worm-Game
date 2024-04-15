@@ -1,9 +1,13 @@
-Alpha 1.0.3
+Alpha 1.0.4 - QOL hotfix 
+  -Added Q to swap control sides 
+  -Added restart game button 
+
+Alpha 1.0.3 - Spring 2024 Scarlet Game Jam build
   -Increased height of second obstacle to make it so that you can't just accidentally throw yourself over it 
   -Added world 4 and 5
   -Added a new mechanic, the worm can now stick to white areas of the background by touching it with a high friction tip
     -Allows rotation but allows you to keep the location 
-  -Changed controls 
+  -Changed controls to WASD and IJKL instead of ASDF and HJKL
 
 Alpha 1.0.2
   -Fixed flexing one side coloring both sides red

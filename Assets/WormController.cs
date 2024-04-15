@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 //In Honour of John Choi
 public class WormController : MonoBehaviour
 {
+  public static GameObject curWorm;
   [SerializeField] Rigidbody2D headRB;
   [SerializeField] Rigidbody2D centerRB;
   [SerializeField] Rigidbody2D tailRB;
@@ -25,10 +28,22 @@ public class WormController : MonoBehaviour
   
   void Start()
   {
+    if(curWorm != null){Destroy(curWorm);}
+    curWorm = this.gameObject;
+    
     InitHinges();
     InitLineRenderers();
   }
 
+  public GameObject GetWormCenter(){
+    return centerRB.gameObject;
+  }
+  public GameObject GetWormLSide(){
+    return tailRB.gameObject;
+  }
+  public GameObject GetWormASide(){
+    return headRB.gameObject;
+  }
 
   private void InitHinges(){
     int index = 0;
@@ -80,19 +95,24 @@ public class WormController : MonoBehaviour
   void Update(){
     UpdateWormProperties();
     UpdateLineRenderer();
+    if(Input.GetKeyDown(keySwapKeys)){
+      SwapControlsHands();
+    }
   }
 
-  private string keyAFriction = "a";
-  public bool frictionAOn = false;
-  private string keyAUp = "s";
-  private string keyADown = "w";
-  private string keyAFlex = "d";
+  private KeyCode keySwapKeys = KeyCode.Q;
 
-  private string keyLFriction = "l";
+  private KeyCode keyAFriction = KeyCode.A;
+  public bool frictionAOn = false;
+  private KeyCode keyAUp = KeyCode.S;
+  private KeyCode keyADown = KeyCode.W;
+  private KeyCode keyAFlex = KeyCode.D;
+
+  private KeyCode keyLFriction = KeyCode.L;
   public bool frictionLOn = false;
-  private string keyLUp = "k";
-  private string keyLDown = "i";
-  private string keyLFlex = "j";
+  private KeyCode keyLUp = KeyCode.K;
+  private KeyCode keyLDown = KeyCode.I;
+  private KeyCode keyLFlex = KeyCode.J;
 
   private KeyCode keyFlexStraight = KeyCode.Space; 
 
@@ -294,5 +314,30 @@ public class WormController : MonoBehaviour
     lineSecondHalf.SetPosition(3, hingeJoints2ndHalf[2].transform.position);
     lineSecondHalf.SetPosition(4, hingeJoints2ndHalf[3].transform.position);
     lineSecondHalf.SetPosition(5, tailRB.transform.position);
+  }
+
+  [SerializeField] Text textA;
+  [SerializeField] Text textL;
+  private void SwapControlsHands(){
+    KeyCode tempUp = keyAUp;
+    KeyCode tempDown = keyADown;
+    keyAUp = keyLUp;
+    keyADown = keyLDown;
+    keyLUp = tempUp;
+    keyLDown = tempDown;
+
+    KeyCode tempFriction = keyAFriction;
+    keyAFriction = keyLFriction;
+    keyLFriction = tempFriction;
+
+    KeyCode tempFlex = keyAFlex;
+    keyAFlex = keyLFlex;
+    keyLFlex = tempFlex;
+
+    string tempText = textA.text;
+    textA.text = textL.text;
+    textL.text = tempText;
+
+    Debug.Log("Swapped Controls");
   }
 }
